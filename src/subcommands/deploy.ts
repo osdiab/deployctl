@@ -284,7 +284,7 @@ async function deploy(opts: DeployOpts): Promise<void> {
           deploySpinner!.succeed(`Deployment complete.`);
           console.log("\nView at:");
           for (const { domain } of event.domainMappings) {
-            console.log(` - https://${domain}`);
+            console.log(`https://${domain}`);
           }
           break;
         case "error":
