@@ -38,6 +38,7 @@ export class API {
     const body = opts.body !== undefined
       ? opts.body instanceof FormData ? opts.body : JSON.stringify(opts.body)
       : undefined;
+    const githubOidcToken = Deno.env.get("GH_OIDC_TOKEN");
     const headers = {
       "Accept": "application/json",
       "Authorization": `Bearer ${this.#token}`,
@@ -46,6 +47,7 @@ export class API {
           ? {}
           : { "Content-Type": "application/json" }
         : {}),
+      ...(githubOidcToken ? { "Oidc-Token": githubOidcToken } : {}),
     };
     return await fetch(url, { method, headers, body });
   }
