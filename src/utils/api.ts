@@ -47,8 +47,11 @@ export class API {
           ? {}
           : { "Content-Type": "application/json" }
         : {}),
-      ...(githubOidcToken ? { "Oidc-Token": githubOidcToken } : {}),
+      ...(githubOidcToken ? { "oidc-token": githubOidcToken } : {}),
     };
+
+    console.log("headers:", JSON.stringify(headers, null, 2));
+
     return await fetch(url, { method, headers, body });
   }
 
