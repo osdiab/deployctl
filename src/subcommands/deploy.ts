@@ -63,7 +63,8 @@ export default async function (rawArgs: Record<string, any>): Promise<void> {
     Deno.exit(0);
   }
   const token = args.token ?? Deno.env.get("DENO_DEPLOY_TOKEN") ?? null;
-  if (token === null) {
+  const githubActionsMode = Deno.env.get("GH_OIDC_TOKEN") ?? null;
+  if (token === null && githubActionsMode === null) {
     console.error(help);
     error("Missing access token. Set via --token or DENO_DEPLOY_TOKEN.");
   }
@@ -84,7 +85,7 @@ export default async function (rawArgs: Record<string, any>): Promise<void> {
     entrypoint: await parseEntrypoint(entrypoint),
     static: args.static,
     prod: args.prod,
-    token,
+    token: String(token),
     project: args.project,
     include: args.include?.map((pattern) => normalize(pattern)),
     exclude: args.exclude?.map((pattern) => normalize(pattern)),
