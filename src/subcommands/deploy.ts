@@ -251,7 +251,14 @@ async function deploy(opts: DeployOpts): Promise<void> {
     production: opts.prod,
     manifest,
   };
-  const progress = api.pushDeploy(project.id, req, files);
+
+  const eventPath = Deno.env.get("GITHUB_EVENT_PATH")!;
+  let eventdata;
+  if (eventPath) {
+    eventdata = await Deno.readTextFile(eventPath);
+  }
+
+  const progress = api.pushDeploy(project.id, req, files, eventdata);
   try {
     for await (const event of progress) {
       switch (event.type) {

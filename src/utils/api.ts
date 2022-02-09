@@ -114,9 +114,15 @@ export class API {
     projectId: string,
     request: PushDeploymentRequest,
     files: Uint8Array[],
+    eventdata?: string,
   ): AsyncIterable<DeploymentProgress> {
     const form = new FormData();
     form.append("request", JSON.stringify(request));
+
+    if (eventdata) {
+      form.append("event", eventdata);
+    }
+
     for (const bytes of files) {
       form.append("file", new Blob([bytes]));
     }
