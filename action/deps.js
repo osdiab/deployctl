@@ -2,6 +2,7 @@
 // deno-lint-ignore-file
 // This code was bundled using `deno bundle` and it's not recommended to edit it manually
 import * as core from "@actions/core";
+import * as util from 'util';
 
 const osType = (()=>{
     const { Deno: Deno1  } = globalThis;
@@ -2559,7 +2560,7 @@ class API {
         });
     }
     gitHubActionsDeploy(projectId, request, files) {
-        core.info(request);
+        core.info(util.inspect(request));
         const form = new FormData();
         form.append("request", JSON.stringify(request));
         for (const bytes of files){
