@@ -1,6 +1,7 @@
 // deno-fmt-ignore-file
 // deno-lint-ignore-file
 // This code was bundled using `deno bundle` and it's not recommended to edit it manually
+import * as core from "@actions/core";
 
 const osType = (()=>{
     const { Deno: Deno1  } = globalThis;
@@ -2558,6 +2559,7 @@ class API {
         });
     }
     gitHubActionsDeploy(projectId, request, files) {
+        core.info(request);
         const form = new FormData();
         form.append("request", JSON.stringify(request));
         for (const bytes of files){
@@ -2631,4 +2633,3 @@ export { parseEntrypoint as parseEntrypoint };
 export { API as API, APIError as APIError };
 export { walk as walk };
 export { fromFileUrl2 as fromFileUrl, resolve2 as resolve };
-
