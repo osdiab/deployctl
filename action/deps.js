@@ -2560,7 +2560,7 @@ class API {
         });
     }
     gitHubActionsDeploy(projectId, request, files) {
-        core.info(util.inspect(request));
+        core.info(JSON.stringify(request));
         const form = new FormData();
         form.append("request", JSON.stringify(request));
         for (const bytes of files){
