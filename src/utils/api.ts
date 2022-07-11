@@ -146,6 +146,8 @@ export class API {
     request: GitHubActionsDeploymentRequest,
     files: Uint8Array[],
   ): AsyncIterable<DeploymentProgress> {
+    console.log(request);
+
     const form = new FormData();
     form.append("request", JSON.stringify(request));
     for (const bytes of files) {
